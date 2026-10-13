@@ -18,8 +18,22 @@ export function Dialog() {
     return (
         <>
             <dialog ref={dialogRef}>
-                <button autoFocus onClick={closeDialog}>Close</button>
-                <p>This modal dialog has a groovy backdrop!</p>
+                <div className='div-fechar'>
+                    <button
+                        autoFocus
+                        onClick={closeDialog}
+                        className='fechar'>X
+                    </button>
+                </div>
+                <div>
+                    <input
+                        type='text'
+                        placeholder='Digite o item que deseja adicionar' />
+                    <button
+                        className='btn-salvar'>
+                        Salvar item
+                    </button>
+                </div>
             </dialog>
             <button onClick={openDialog}>Show the dialog</button>
         </>
