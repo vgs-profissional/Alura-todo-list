@@ -1,41 +1,45 @@
+import { IconClose } from '../icons';
 import './dialog.style.css'
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-export function Dialog() {
+export function Dialog({ isOpen, onClose, children }) {
     // const dialog = document.querySelector("dialog");
     const dialogRef = useRef(null)
-    // "Show the dialog" button opens the dialog modally
+    useEffect(() => {
+        if (isOpen) {
+            console.log('Deve abrir o modal?', isOpen);
+            openDialog()
+        } else {
+            closeDialog()
+            console.log('Deve abrir o modal?', isOpen);
+        }
+    }, [isOpen])
+
     const openDialog = () => {
         dialogRef.current.showModal();
-        console.log(dialogRef.current);
     };
-
-    // "Close" button closes the dialog
     const closeDialog = () => {
         dialogRef.current.close();
-        console.log(dialogRef.current);
     };
     return (
         <>
             <dialog ref={dialogRef}>
-                <div className='div-fechar'>
+                <div className='btn-close-wrapper'>
                     <button
                         autoFocus
-                        onClick={closeDialog}
-                        className='fechar'>X
+                        onClick={onClose}
+                        className='btn-close'>
+                        <IconClose />
                     </button>
                 </div>
                 <div>
                     <input
                         type='text'
                         placeholder='Digite o item que deseja adicionar' />
-                    <button
-                        className='btn-salvar'>
-                        Salvar item
-                    </button>
+                    {children}
                 </div>
-            </dialog>
-            <button onClick={openDialog}>Show the dialog</button>
+            </dialog >
+
         </>
     )
 }

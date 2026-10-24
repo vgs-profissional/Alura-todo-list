@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper"
 import { Container } from "./components/Container"
 import { Dialog } from "./components/Dialog"
@@ -50,8 +51,11 @@ const completed = [
     createdAt: "2022-10-31"
   }
 ]
-
 function App() {
+  const [showDialog, setShowDialog] = useState(false)
+  const toggleDialog = () => {
+    setShowDialog(!showDialog)
+  }
 
   return (
     <main>
@@ -61,7 +65,6 @@ function App() {
             <IconSchool /> Plano de estudos
           </Heading>
         </Header>
-        <Dialog />
         <ChecklistsWrapper>
           <SubHeading>Para estudar</SubHeading>
           <ToDoList>
@@ -76,13 +79,19 @@ function App() {
             })}
           </ToDoList>
           <Footer>
-            <FabButton>
+            <Dialog isOpen={showDialog} onClose={toggleDialog} >
+              <button
+                className='btn-salvar'>
+                Salvar item
+              </button>
+            </Dialog>
+            <FabButton onClick={toggleDialog}>
               <IconPlus />
             </FabButton>
           </Footer>
         </ChecklistsWrapper>
       </Container>
-    </main>
+    </main >
   )
 }
 
