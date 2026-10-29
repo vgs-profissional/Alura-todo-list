@@ -10,6 +10,7 @@ import { IconPlus, IconSchool } from "./components/icons"
 import { SubHeading } from "./components/SubHeading"
 import { ToDoItem } from "./components/ToDoItem"
 import { ToDoList } from "./components/ToDoList"
+import { Form } from "./components/ToDoForm"
 
 const todos = [
   {
@@ -51,10 +52,16 @@ const completed = [
     createdAt: "2022-10-31"
   }
 ]
+
 function App() {
   const [showDialog, setShowDialog] = useState(false)
   const toggleDialog = () => {
     setShowDialog(!showDialog)
+  }
+
+  const addTodo = () => {
+    console.log('Clicou e apareceu');
+    toggleDialog()
   }
 
   return (
@@ -80,10 +87,7 @@ function App() {
           </ToDoList>
           <Footer>
             <Dialog isOpen={showDialog} onClose={toggleDialog} >
-              <button
-                className='btn-salvar'>
-                Salvar item
-              </button>
+              <Form onSubmit={addTodo} />
             </Dialog>
             <FabButton onClick={toggleDialog}>
               <IconPlus />
