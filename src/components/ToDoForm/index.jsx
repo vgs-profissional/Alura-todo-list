@@ -4,7 +4,12 @@ import './ToDoForm.estilo.css'
 export function Form({ onSubmit }) {
     return (
         <form className="formulario" action={onSubmit} >
-            <TextInput required />
+            <TextInput
+                type="text"
+                className='text-input'
+                placeholder='Digite o item que deseja adicionar'
+                name='description'
+                required />
             <Button className='btn-salvar'>
                 Salvar item
             </Button>
