@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TodoContext from "./TodoContext";
 
-function TodoProvider({ children }) {
+export function TodoProvider({ children }) {
     const [todos, setTodos] = useState([
         {
             id: 1,
@@ -29,8 +29,6 @@ function TodoProvider({ children }) {
             console.log(prevState);
             return [...prevState, newTodo]
         })
-        // console.log(description);
-        toggleDialog()
     }
 
     const toggleTodoCompleted = (todos) => {
@@ -55,8 +53,8 @@ function TodoProvider({ children }) {
             value={{
                 todos,
                 addTodo,
-                toggleTodoCompleted,
-                removeTodo
+                removeTodo,
+                toggleTodoCompleted
             }}
         >
             {children}
