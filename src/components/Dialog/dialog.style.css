@@ -1,0 +1,35 @@
+::backdrop {
+    background-color: #000;
+    opacity: 0.75;
+}
+
+dialog {
+    background-color: #1e1e1e;
+    border-radius: 16px;
+    border: none;
+    width: 472px;
+}
+
+.btn-close-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.btn-close {
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-align: right;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* dialog input:focus-visible {
+    outline-color: #877eed;
+} */
+
