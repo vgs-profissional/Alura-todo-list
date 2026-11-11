@@ -1,7 +1,7 @@
 import { TextInput } from "../TextInput"
 import { Button } from "../Button"
 import './ToDoForm.estilo.css'
-export function Form({ onSubmit }) {
+export function Form({ onSubmit, defaultValue }) {
     return (
         <form className="formulario" action={onSubmit} >
             <TextInput
@@ -9,6 +9,7 @@ export function Form({ onSubmit }) {
                 className='text-input'
                 placeholder='Digite o item que deseja adicionar'
                 name='description'
+                defaultValue={defaultValue}
                 required />
             <Button className='btn-salvar'>
                 Salvar item
