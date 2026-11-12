@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { use } from "react"
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper"
 import { Container } from "./components/Container"
 import { Dialog } from "./components/Dialog"
@@ -10,20 +10,18 @@ import { IconPlus, IconSchool } from "./components/icons"
 import { Form } from "./components/ToDoForm"
 import { TodoGroup } from "./components/TodoGroup"
 import TodoContext from "./components/TodoProvider/TodoContext"
-
+import { EmptyState } from "./components/EmptyState/EmptyState"
 
 function App() {
-  const { todos, addTodo } = use(TodoContext)
-
-  const [showDialog, setShowDialog] = useState(false)
-
-  const toggleDialog = () => {
-    setShowDialog(!showDialog)
-  }
+  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo } = use(TodoContext)
 
   const handleFormSubmit = (FormData) => {
-    addTodo(FormData)
-    toggleDialog()
+    if (selectedTodo) {
+      editTodo(FormData)
+    } else {
+      addTodo(FormData)
+    }
+    closeFormTodoDialog()
   }
 
   return (
@@ -36,18 +34,22 @@ function App() {
         </Header>
         <ChecklistsWrapper>
           <TodoGroup
-            heading={'Incompletos'}
+            heading={'Para estudar'}
             item={todos.filter(t => !t.completed)}
           />
+          {todos.length == 0 && <EmptyState />}
           <TodoGroup
             heading={'Completos'}
             item={todos.filter(t => t.completed)}
           />
           <Footer>
-            <Dialog isOpen={showDialog} onClose={toggleDialog} >
-              <Form onSubmit={handleFormSubmit} />
+            <Dialog isOpen={showDialog} onClose={closeFormTodoDialog} >
+              <Form
+                onSubmit={handleFormSubmit}
+                defaultValue={selectedTodo?.description}
+              />
             </Dialog>
-            <FabButton onClick={toggleDialog}>
+            <FabButton onClick={() => openFormTodoDialog()}>
               <IconPlus />
             </FabButton>
           </Footer>
