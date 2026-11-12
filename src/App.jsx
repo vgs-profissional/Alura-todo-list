@@ -10,14 +10,18 @@ import { IconPlus, IconSchool } from "./components/icons"
 import { Form } from "./components/ToDoForm"
 import { TodoGroup } from "./components/TodoGroup"
 import TodoContext from "./components/TodoProvider/TodoContext"
-
+import { EmptyState } from "./components/EmptyState/EmptyState"
 
 function App() {
-  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo } = use(TodoContext)
+  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo } = use(TodoContext)
 
   const handleFormSubmit = (FormData) => {
-    addTodo(FormData)
-    openFormTodoDialog()
+    if (selectedTodo) {
+      editTodo(FormData)
+    } else {
+      addTodo(FormData)
+    }
+    closeFormTodoDialog()
   }
 
   return (
@@ -30,9 +34,10 @@ function App() {
         </Header>
         <ChecklistsWrapper>
           <TodoGroup
-            heading={'Incompletos'}
+            heading={'Para estudar'}
             item={todos.filter(t => !t.completed)}
           />
+          {todos.length == 0 && <EmptyState />}
           <TodoGroup
             heading={'Completos'}
             item={todos.filter(t => t.completed)}
@@ -40,11 +45,11 @@ function App() {
           <Footer>
             <Dialog isOpen={showDialog} onClose={closeFormTodoDialog} >
               <Form
-                onSubmit={handleFormSubmit} 
+                onSubmit={handleFormSubmit}
                 defaultValue={selectedTodo?.description}
               />
             </Dialog>
-            <FabButton onClick={openFormTodoDialog}>
+            <FabButton onClick={() => openFormTodoDialog()}>
               <IconPlus />
             </FabButton>
           </Footer>
